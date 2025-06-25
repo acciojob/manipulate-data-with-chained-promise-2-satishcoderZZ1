@@ -8,6 +8,40 @@
   <body>
     <!-- do not change this code -->
     <div id="output"></div>
-    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./script.js">
+		function getInitialArray(){
+			return new Promise((resolve) =>{
+				setTimeout(()=>{
+					resolve([1,2,3,4]);
+				}, 3000);
+			});
+		}
+
+		function filterEvenNumbers(array){
+			return new Promise((resolve)=>{
+				setTimeout(()=>{
+					const evens = array.filer(num => num%2==0);
+					document.getElementById('output').textContent = evens.join(',');
+					resolve(evens);
+				},1000)
+			});
+		}
+
+		function multiplyByTwo(array){
+			return new Promise((resolve)=>{
+				setTimeout(()=>{
+					const doubled = array.map(num => num*2);
+					document.getElementById('output').textContent = doubled.join(',');
+					resolve(doubled);
+				},2000);
+			});
+		}
+		getInitialArray()
+       .then(filtered => filterEvenNumbers(filtered))
+       .then(doubled => multiplyByTwo(doubled))
+       .catch(error => {
+        document.getElementById('output').textContent = `Error: ${error}`;
+      });
+	</script>
   </body>
 </html>
